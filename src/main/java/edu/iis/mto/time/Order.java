@@ -9,11 +9,13 @@ import java.util.List;
 
 public class Order {
 	private static final int VALID_PERIOD_HOURS = 24;
+	private Clock clock;
 	private State orderState;
 	private List<OrderItem> items = new ArrayList<OrderItem>();
 	private DateTime subbmitionDate;
 
 	public Order(Clock clock) {
+		this.clock = clock;
 		orderState = State.CREATED;
 	}
 
@@ -35,7 +37,7 @@ public class Order {
 
 	public void confirm() {
 		requireState(State.SUBMITTED);
-		int hoursElapsedAfterSubmittion = Hours.hoursBetween(subbmitionDate, new DateTime()).getHours();
+		int hoursElapsedAfterSubmittion = Hours.hoursBetween(subbmitionDate, DateTime.parse(clock.instant().toString())).getHours();
 		if(hoursElapsedAfterSubmittion > VALID_PERIOD_HOURS){
 			orderState = State.CANCELLED;
 			throw new OrderExpiredException();

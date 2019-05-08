@@ -24,7 +24,7 @@ public class OrderTest {
 
     @Test(expected =  OrderExpiredException.class)
     public void shouldThrowExceptionAfterOrderExpiration() {
-        doReturn(Clock.systemDefaultZone().instant().plus(1, ChronoUnit.DAYS)).when(clockStub).instant();
+        doReturn(Clock.systemDefaultZone().instant().plus(2, ChronoUnit.DAYS)).when(clockStub).instant();
 
         sut.submit();
         sut.confirm();
