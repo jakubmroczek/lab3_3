@@ -1,10 +1,11 @@
 package edu.iis.mto.time;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.joda.time.DateTime;
 import org.joda.time.Hours;
+
+import java.time.Clock;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Order {
 	private static final int VALID_PERIOD_HOURS = 24;
@@ -12,7 +13,7 @@ public class Order {
 	private List<OrderItem> items = new ArrayList<OrderItem>();
 	private DateTime subbmitionDate;
 
-	public Order() {
+	public Order(Clock clock) {
 		orderState = State.CREATED;
 	}
 
